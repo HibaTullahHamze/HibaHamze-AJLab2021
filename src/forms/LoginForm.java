@@ -29,7 +29,7 @@ import javafx.stage.Stage;
 
 /**
  *
- * @author hibahamze
+ * @author hibatullah hamze
  */
 public class LoginForm extends Application {
     
