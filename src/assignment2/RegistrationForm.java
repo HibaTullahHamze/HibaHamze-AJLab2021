@@ -17,6 +17,7 @@ import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
@@ -109,9 +110,62 @@ public class RegistrationForm extends Application{
         grid.add(ta1,1,8);
         
         root.getChildren().addAll(grid,bt1);
-        
+    
         Scene scene = new Scene(root, 450, 600);
-      
+        
+        Text er1 = new Text("name must not have digits");
+        er1.setFill(Color.RED);
+        Text er2 = new Text("Invalid email");
+        er2.setFill(Color.RED);
+        Text er3 = new Text("Phone number must be 8 digits length");
+        er3.setFill(Color.RED);
+        Text er4 = new Text("Phone number must not have characters");
+        er4.setFill(Color.RED);
+        Text er5 = new Text("Password must contain at least one capital letter, one small leter, a digit,\n and minimum 8 characters");
+        er5.setFill(Color.RED);
+        Text er6 = new Text("Unconfirmed password");
+        er6.setFill(Color.RED);
+        Text er7 = new Text("Unselected country");
+        er7.setFill(Color.RED);
+        Text er8 = new Text("About you must contain at least 50 characters");
+        er8.setFill(Color.RED);
+
+        
+        bt1.setOnAction(e->{
+        if(!isAlpha(tf1.getText()))
+            root.getChildren().add(er1);
+       else root.getChildren().remove(er1);
+        
+        if(!isValid(tf2.getText()))
+            root.getChildren().add(er2);
+       else root.getChildren().remove(er2);
+        
+        if(!isPhone2(tf3.getText()))
+            root.getChildren().add(er3);
+       else root.getChildren().remove(er3);
+        
+        if(!isPhone1(tf3.getText()))
+            root.getChildren().add(er4);
+       else root.getChildren().remove(er4);
+        
+        if(!isPassword(pf1.getText())||isAlpha(pf1.getText())||!containUpperCase(pf1.getText())||!containLowerCase(pf1.getText()))
+            root.getChildren().add(er5);
+       else root.getChildren().remove(er5);
+        
+        if(pf2.getText().compareTo(pf1.getText())!=0)
+            root.getChildren().add(er6);
+       else root.getChildren().remove(er6);
+        
+        if(cb1.getSelectionModel().isEmpty())
+            root.getChildren().add(er7);
+       else root.getChildren().remove(er7);
+        
+        if(ta1.getText().length()<50)
+            root.getChildren().add(er8);
+       else root.getChildren().remove(er8);
+        
+        });  
+        
         primaryStage.setTitle("Registration Form");
         primaryStage.setScene(scene);
         primaryStage.show();
@@ -120,5 +174,60 @@ public class RegistrationForm extends Application{
      public static void main(String[] args) {
         launch(args);
     }   
-}
+     
+     public boolean isAlpha(String name){
+         char[] chars = name.toCharArray();
+         for( char c : chars)
+             if(!Character.isLetter(c))
+                 return false;
+                 return true;
+     }
+     public boolean isValid(String email){
+        if (!email.contains("@")||!email.contains("."))
+            return false;
+       else return true;
+       
+        }
+    public boolean isPhone1(String phone){
+         char[] chars = phone.toCharArray();
+         for( char c : chars)
+             if(Character.isLetter(c))
+                 return false;
+                 return true;
+     }
+    public boolean isPhone2(String phone){
+             if(phone.length()==8)
+                 return true;
+           else  return false;
+     }
+    public boolean isPassword(String password){
+             if(password.length()>=8)
+                 return true;
+           else  return false;
+     }
+    public boolean containUpperCase(String password){
+         char[] chars = password.toCharArray();
+         int i = 0;
+         for( char c : chars)
+             if(Character.isUpperCase(c))
+                i++;
+         if(i==0)
+             return false;
+        else return true;
+                
+     }
+    public boolean containLowerCase(String password){
+         char[] chars = password.toCharArray();
+         int i = 0;
+         for( char c : chars)
+             if(Character.isLowerCase(c))
+                i++;
+         if(i==0)
+             return false;
+        else return true;
+                
+     }
+
+     }
+
 
