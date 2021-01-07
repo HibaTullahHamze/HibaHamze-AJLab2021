@@ -6,6 +6,8 @@ import static javafx.application.Application.launch;
 import javafx.collections.FXCollections;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
@@ -33,6 +35,9 @@ public class RegistrationForm extends Application{
         GridPane grid = new GridPane();
         grid.setVgap(20);
         grid.setHgap(30);
+        
+        VBox errorbox = new VBox();
+        errorbox.setSpacing(5);
         
         Text t1 = new Text("Name:");
         Text t2 = new Text("Email:");
@@ -109,7 +114,7 @@ public class RegistrationForm extends Application{
         grid.add(hb2,1,7);
         grid.add(ta1,1,8);
         
-        root.getChildren().addAll(grid,bt1);
+        root.getChildren().addAll(grid,bt1,errorbox);
     
         Scene scene = new Scene(root, 450, 600);
         
@@ -133,38 +138,95 @@ public class RegistrationForm extends Application{
         
         bt1.setOnAction(e->{
         if(!isAlpha(tf1.getText()))
-            root.getChildren().add(er1);
-       else root.getChildren().remove(er1);
+            errorbox.getChildren().add(er1);
+       else errorbox.getChildren().remove(er1);
         
         if(!isValid(tf2.getText()))
-            root.getChildren().add(er2);
-       else root.getChildren().remove(er2);
+            errorbox.getChildren().add(er2);
+       else errorbox.getChildren().remove(er2);
         
         if(!isPhone2(tf3.getText()))
-            root.getChildren().add(er3);
-       else root.getChildren().remove(er3);
+            errorbox.getChildren().add(er3);
+       else errorbox.getChildren().remove(er3);
         
         if(!isPhone1(tf3.getText()))
-            root.getChildren().add(er4);
-       else root.getChildren().remove(er4);
+            errorbox.getChildren().add(er4);
+       else errorbox.getChildren().remove(er4);
         
         if(!isPassword(pf1.getText())||isAlpha(pf1.getText())||!containUpperCase(pf1.getText())||!containLowerCase(pf1.getText()))
-            root.getChildren().add(er5);
-       else root.getChildren().remove(er5);
+            errorbox.getChildren().add(er5);
+       else errorbox.getChildren().remove(er5);
         
         if(pf2.getText().compareTo(pf1.getText())!=0)
-            root.getChildren().add(er6);
-       else root.getChildren().remove(er6);
+            errorbox.getChildren().add(er6);
+       else errorbox.getChildren().remove(er6);
         
         if(cb1.getSelectionModel().isEmpty())
-            root.getChildren().add(er7);
-       else root.getChildren().remove(er7);
+            errorbox.getChildren().add(er7);
+       else errorbox.getChildren().remove(er7);
         
         if(ta1.getText().length()<50)
-            root.getChildren().add(er8);
-       else root.getChildren().remove(er8);
+            errorbox.getChildren().add(er8);
+       else errorbox.getChildren().remove(er8);
         
-        });  
+        if(errorbox.getChildren().isEmpty()){
+            Alert alert = new Alert(AlertType.INFORMATION);
+	    alert.setTitle("Successfully Registered");
+	    alert.setHeaderText(null);
+            alert.setContentText("Successfully Registered");
+            alert.showAndWait();
+            }
+        });   
+         
+       tf1.setOnKeyReleased(e->{
+        if(!isAlpha(tf1.getText()))
+            errorbox.getChildren().add(er1);
+       else errorbox.getChildren().remove(er1);
+       });
+       
+       tf2.setOnKeyReleased(e->{
+        if(!isValid(tf2.getText()))
+            errorbox.getChildren().add(er2);
+       else errorbox.getChildren().remove(er2);
+       });
+       
+       tf3.setOnKeyReleased(e->{
+        if(!isPhone2(tf3.getText()))
+            errorbox.getChildren().add(er3);
+       else errorbox.getChildren().remove(er3);
+       });
+       
+       tf3.setOnKeyReleased(e->{
+        if(!isPhone1(tf3.getText()))
+            errorbox.getChildren().add(er4);
+       else errorbox.getChildren().remove(er4);
+       });
+       
+       pf1.setOnKeyReleased(e->{
+        if(!isPassword(pf1.getText())||isAlpha(pf1.getText())||!containUpperCase(pf1.getText())||!containLowerCase(pf1.getText()))
+            errorbox.getChildren().add(er5);
+       else errorbox.getChildren().remove(er5);
+       });
+       
+       pf2.setOnKeyReleased(e->{
+        if(pf2.getText().compareTo(pf1.getText())!=0)
+            errorbox.getChildren().add(er6);
+       else errorbox.getChildren().remove(er6);
+       });
+       
+       cb1.setOnMouseReleased(e->{
+        if(cb1.getSelectionModel().isEmpty())
+            errorbox.getChildren().add(er7);
+       else errorbox.getChildren().remove(er7);
+       });
+       
+       ta1.setOnKeyReleased(e->{
+        if(ta1.getText().length()<50)
+            errorbox.getChildren().add(er8);
+       else errorbox.getChildren().remove(er8);
+       });
+       
+       
         
         primaryStage.setTitle("Registration Form");
         primaryStage.setScene(scene);
@@ -227,7 +289,6 @@ public class RegistrationForm extends Application{
         else return true;
                 
      }
-
      }
 
 
