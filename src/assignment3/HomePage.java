@@ -18,6 +18,11 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundImage;
+import javafx.scene.layout.BackgroundPosition;
+import javafx.scene.layout.BackgroundRepeat;
+import javafx.scene.layout.BackgroundSize;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -262,11 +267,16 @@ public class HomePage extends Application{
         
         Scene Signup = new Scene(signup, 450, 700);
         
+        Image image = new Image("file:///C:\\Users\\user\\Desktop\\Hiba Fall 2020\\Advanced Java Lab\\slide1.jpg");
+        BackgroundImage bi = new BackgroundImage(image,BackgroundRepeat.NO_REPEAT,BackgroundRepeat.NO_REPEAT,BackgroundPosition.DEFAULT,BackgroundSize.DEFAULT);
+        Background bg = new Background(bi);
+        
         GridPane root = new GridPane();
         root.setPadding(new Insets(50));
         root.setHgap(30);
         root.setVgap(30);
         root.setAlignment(Pos.CENTER);
+        root.setBackground(bg);
 
         Button button1 = new Button("Sign in");
         button1.setFont(Font.font("Times New Roman", FontWeight.NORMAL, 20));
@@ -281,7 +291,7 @@ public class HomePage extends Application{
         button2.setOnAction(e->{primaryStage.setScene(Signup);
                                 primaryStage.setTitle("Signup page");
                                 primaryStage.show();});
-        Scene Home = new Scene(root, 450, 450);
+        Scene Home = new Scene(root, 800, 600);
         
         Button button3 = new Button("go to signin page");
         button3.setOnAction(e->{primaryStage.setScene(Signin);
@@ -312,6 +322,7 @@ public class HomePage extends Application{
         back2.setSpacing(130);
         back2.getChildren().addAll(button5,button6);
         signin.getChildren().add(back2);
+        
 
         root.add(button1, 0, 0);
         root.add(button2, 0, 1);
