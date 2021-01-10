@@ -317,14 +317,32 @@ public class HomePage extends Application{
         bg[9] = new Background(bi9);
         
         root.setBackground(bg[0]);
-        int i = 0;
         
         EventHandler<ActionEvent> myHandler = e -> {
-          root.setBackground(bg[i+1]);
+          if(root.getBackground()== bg[0])
+          root.setBackground(bg[1]);
+    else  if(root.getBackground()== bg[1])
+          root.setBackground(bg[2]);
+    else  if(root.getBackground()== bg[2])
+          root.setBackground(bg[3]);
+    else  if(root.getBackground()== bg[3])
+          root.setBackground(bg[4]);
+    else  if(root.getBackground()== bg[4])
+          root.setBackground(bg[5]);
+    else  if(root.getBackground()== bg[5])
+          root.setBackground(bg[6]);
+    else  if(root.getBackground()== bg[6])
+          root.setBackground(bg[7]);
+    else  if(root.getBackground()== bg[7])
+          root.setBackground(bg[8]);
+    else  if(root.getBackground()== bg[8])
+          root.setBackground(bg[9]);
+    else  if(root.getBackground()== bg[9])
+          root.setBackground(bg[0]);
           
         };
  
-        Timeline animation = new Timeline(new KeyFrame(Duration.millis(2000), myHandler));
+        Timeline animation = new Timeline(new KeyFrame(Duration.millis(1500), myHandler));
         animation.setCycleCount(Timeline.INDEFINITE);
         animation.play();
         
