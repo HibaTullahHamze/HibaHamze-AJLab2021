@@ -1,9 +1,13 @@
 package assignment3;
 
 import java.util.Locale;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.application.Application;
 import static javafx.application.Application.launch;
 import javafx.collections.FXCollections;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -19,6 +23,7 @@ import javafx.scene.control.ToggleGroup;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.BackgroundImage;
 import javafx.scene.layout.BackgroundPosition;
 import javafx.scene.layout.BackgroundRepeat;
@@ -31,6 +36,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 
 public class HomePage extends Application{
@@ -66,12 +72,14 @@ public class HomePage extends Application{
         signin.setPadding(new Insets(20));
         signin.setSpacing(25);
         signin.getChildren().addAll(pane,iv1,btt1);
+        signin.setBackground(new Background(new BackgroundFill(Color.LIGHTBLUE,null,null)));
         
         Scene Signin = new Scene(signin,400,450);
         
         VBox signup = new VBox();
         signup.setPadding(new Insets(20,20,20,30));
         signup.setSpacing(20);
+        signup.setBackground(new Background(new BackgroundFill(Color.LIGHTBLUE,null,null)));
     
         GridPane grid = new GridPane();
         grid.setVgap(20);
@@ -267,17 +275,59 @@ public class HomePage extends Application{
         
         Scene Signup = new Scene(signup, 450, 700);
         
-        Image image = new Image("file:///C:\\Users\\user\\Desktop\\Hiba Fall 2020\\Advanced Java Lab\\slide1.jpg");
-        BackgroundImage bi = new BackgroundImage(image,BackgroundRepeat.NO_REPEAT,BackgroundRepeat.NO_REPEAT,BackgroundPosition.DEFAULT,BackgroundSize.DEFAULT);
-        Background bg = new Background(bi);
-        
         GridPane root = new GridPane();
         root.setPadding(new Insets(50));
         root.setHgap(30);
         root.setVgap(30);
         root.setAlignment(Pos.CENTER);
-        root.setBackground(bg);
-
+        
+        Image[] image = new Image[10];
+        image[0] = new Image("file:///C:\\Users\\user\\Desktop\\Hiba Fall 2020\\Advanced Java Lab\\slide0.jpg");
+        image[1] = new Image("file:///C:\\Users\\user\\Desktop\\Hiba Fall 2020\\Advanced Java Lab\\slide1.jpg");
+        image[2] = new Image("file:///C:\\Users\\user\\Desktop\\Hiba Fall 2020\\Advanced Java Lab\\slide2.jpg");
+        image[3] = new Image("file:///C:\\Users\\user\\Desktop\\Hiba Fall 2020\\Advanced Java Lab\\slide3.jpg");
+        image[4] = new Image("file:///C:\\Users\\user\\Desktop\\Hiba Fall 2020\\Advanced Java Lab\\slide4.jpg");
+        image[5] = new Image("file:///C:\\Users\\user\\Desktop\\Hiba Fall 2020\\Advanced Java Lab\\slide5.jpg");
+        image[6] = new Image("file:///C:\\Users\\user\\Desktop\\Hiba Fall 2020\\Advanced Java Lab\\slide6.jpg");
+        image[7] = new Image("file:///C:\\Users\\user\\Desktop\\Hiba Fall 2020\\Advanced Java Lab\\slide7.jpg");
+        image[8] = new Image("file:///C:\\Users\\user\\Desktop\\Hiba Fall 2020\\Advanced Java Lab\\slide8.jpg");
+        image[9] = new Image("file:///C:\\Users\\user\\Desktop\\Hiba Fall 2020\\Advanced Java Lab\\slide9.jpg");
+       
+        BackgroundImage bi0 = new BackgroundImage(image[0],BackgroundRepeat.NO_REPEAT,BackgroundRepeat.NO_REPEAT,BackgroundPosition.DEFAULT,BackgroundSize.DEFAULT);
+        BackgroundImage bi1 = new BackgroundImage(image[1],BackgroundRepeat.NO_REPEAT,BackgroundRepeat.NO_REPEAT,BackgroundPosition.DEFAULT,BackgroundSize.DEFAULT);
+        BackgroundImage bi2 = new BackgroundImage(image[2],BackgroundRepeat.NO_REPEAT,BackgroundRepeat.NO_REPEAT,BackgroundPosition.DEFAULT,BackgroundSize.DEFAULT);
+        BackgroundImage bi3 = new BackgroundImage(image[3],BackgroundRepeat.NO_REPEAT,BackgroundRepeat.NO_REPEAT,BackgroundPosition.DEFAULT,BackgroundSize.DEFAULT);
+        BackgroundImage bi4 = new BackgroundImage(image[4],BackgroundRepeat.NO_REPEAT,BackgroundRepeat.NO_REPEAT,BackgroundPosition.DEFAULT,BackgroundSize.DEFAULT);
+        BackgroundImage bi5 = new BackgroundImage(image[5],BackgroundRepeat.NO_REPEAT,BackgroundRepeat.NO_REPEAT,BackgroundPosition.DEFAULT,BackgroundSize.DEFAULT);
+        BackgroundImage bi6 = new BackgroundImage(image[6],BackgroundRepeat.NO_REPEAT,BackgroundRepeat.NO_REPEAT,BackgroundPosition.DEFAULT,BackgroundSize.DEFAULT);
+        BackgroundImage bi7 = new BackgroundImage(image[7],BackgroundRepeat.NO_REPEAT,BackgroundRepeat.NO_REPEAT,BackgroundPosition.DEFAULT,BackgroundSize.DEFAULT);
+        BackgroundImage bi8 = new BackgroundImage(image[8],BackgroundRepeat.NO_REPEAT,BackgroundRepeat.NO_REPEAT,BackgroundPosition.DEFAULT,BackgroundSize.DEFAULT);
+        BackgroundImage bi9 = new BackgroundImage(image[9],BackgroundRepeat.NO_REPEAT,BackgroundRepeat.NO_REPEAT,BackgroundPosition.DEFAULT,BackgroundSize.DEFAULT);
+        
+        Background[] bg = new Background[10];
+        bg[0] = new Background(bi0);
+        bg[1] = new Background(bi1);
+        bg[2] = new Background(bi2);
+        bg[3] = new Background(bi3);
+        bg[4] = new Background(bi4);
+        bg[5] = new Background(bi5);
+        bg[6] = new Background(bi6);
+        bg[7] = new Background(bi7);
+        bg[8] = new Background(bi8);
+        bg[9] = new Background(bi9);
+        
+        root.setBackground(bg[0]);
+        int i = 0;
+        
+        EventHandler<ActionEvent> myHandler = e -> {
+          root.setBackground(bg[i+1]);
+          
+        };
+ 
+        Timeline animation = new Timeline(new KeyFrame(Duration.millis(2000), myHandler));
+        animation.setCycleCount(Timeline.INDEFINITE);
+        animation.play();
+        
         Button button1 = new Button("Sign in");
         button1.setFont(Font.font("Times New Roman", FontWeight.NORMAL, 20));
         button1.setStyle("-fx-border-color:white");
