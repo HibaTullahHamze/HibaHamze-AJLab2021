@@ -66,13 +66,15 @@ public class LoginForm extends Application {
         
     try{
         
-    //  File file = new File("file:///C:\\Users\\user\\Documents\\NetBeansProjects\\JavaFXApplication3\\src\\assignment1\\users.txt");
         File file = new File("users.txt");
         Scanner fileScan = new Scanner(file);
+        fileScan.next();
+        fileScan.next();
         
         bt1.setOnAction(e->{
         
-        while(!(fileScan.nextLine().equalsIgnoreCase(""))){
+        while(!(fileScan.next().equals(""))){
+            
             if(tf1.getText().equalsIgnoreCase(fileScan.next())){
                
                 if(pf1.getText().equals(fileScan.next())){
@@ -82,13 +84,15 @@ public class LoginForm extends Application {
                         alert.setHeaderText(null);
                         alert.setContentText("Successfully logged in");
                         alert.showAndWait();
+                        break;
                 }
                 else{
                   Alert alert=new Alert(Alert.AlertType.ERROR);
                         alert.setTitle(null);
                         alert.setHeaderText(null);
                         alert.setContentText("Incorrect password");
-                        alert.showAndWait();              
+                        alert.showAndWait(); 
+                        break;
                 }        
             }
             else{
@@ -96,7 +100,8 @@ public class LoginForm extends Application {
                     alert.setTitle(null);
                     alert.setHeaderText(null);
                     alert.setContentText("Incorrect username");
-                    alert.showAndWait();         
+                    alert.showAndWait();  
+                    break;
             }
         }
         fileScan.close();
