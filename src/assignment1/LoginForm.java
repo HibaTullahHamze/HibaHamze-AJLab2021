@@ -1,12 +1,15 @@
 
 package assignment1;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
 import javafx.application.Application;
 import static javafx.application.Application.launch;
-import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
@@ -38,7 +41,7 @@ public class LoginForm extends Application {
         bt1.setFont(Font.font("Times New Roman", FontWeight.NORMAL, 20));
         
         ImageView iv1 = new ImageView(new Image("https://picsum.photos/200"));
-            
+      
         GridPane pane = new GridPane();
         pane.setPadding(new Insets(15));
         pane.setAlignment(Pos.CENTER);
@@ -49,20 +52,65 @@ public class LoginForm extends Application {
         pane.add(tf1, 1, 0);
         pane.add(pf1, 1, 1);
         
-        VBox root = new VBox();
-        root.setAlignment(Pos.CENTER);
-        root.setPadding(new Insets(20));
-        root.setSpacing(25);
-        root.getChildren().addAll(pane,iv1,bt1);
+        VBox signin = new VBox();
+        signin.setAlignment(Pos.CENTER);
+        signin.setPadding(new Insets(20));
+        signin.setSpacing(25);
+        signin.getChildren().addAll(pane,iv1,bt1);
 
-        Scene scene = new Scene(root, 400, 450);
+        Scene scene = new Scene(signin, 400, 450);
         
         primaryStage.setTitle("Login form");
         primaryStage.setScene(scene);
         primaryStage.show();
+        
+    try{
+        
+    //  File file = new File("file:///C:\\Users\\user\\Documents\\NetBeansProjects\\JavaFXApplication3\\src\\assignment1\\users.txt");
+        File file = new File("users.txt");
+        Scanner fileScan = new Scanner(file);
+        
+        bt1.setOnAction(e->{
+        
+        while(!(fileScan.nextLine().equalsIgnoreCase(""))){
+            if(tf1.getText().equalsIgnoreCase(fileScan.next())){
+               
+                if(pf1.getText().equals(fileScan.next())){
+                
+                  Alert alert=new Alert(Alert.AlertType.INFORMATION);
+                        alert.setTitle(null);
+                        alert.setHeaderText(null);
+                        alert.setContentText("Successfully logged in");
+                        alert.showAndWait();
+                }
+                else{
+                  Alert alert=new Alert(Alert.AlertType.ERROR);
+                        alert.setTitle(null);
+                        alert.setHeaderText(null);
+                        alert.setContentText("Incorrect password");
+                        alert.showAndWait();              
+                }        
+            }
+            else{
+              Alert alert=new Alert(Alert.AlertType.ERROR);
+                    alert.setTitle(null);
+                    alert.setHeaderText(null);
+                    alert.setContentText("Incorrect username");
+                    alert.showAndWait();         
+            }
+        }
+        fileScan.close();
+        
+      });
+    } 
+    catch (FileNotFoundException e) {
+            System.out.println("Oops. File was not found");
+            e.printStackTrace();
+    }
     }
     public static void main(String[] args) {
         launch(args);
+
     }
     
 }
